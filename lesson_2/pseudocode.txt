@@ -1,0 +1,69 @@
+# PRACTICE: write out pseudocode (both casual and formal) that does the following:
+
+Pseudocode formal:
+    START	start of the program
+    SET	set a variable that we can use for later
+    GET	retrieve input from user
+    PRINT	display output to user
+    READ	retrieve a value from a variable
+    IF/ELSE IF/ELSE	show conditional branches in logic
+    WHILE	show looping logic
+    END	end of the program
+
+
+1. a function that returns the sum of two numbers
+    START
+    GET 2 numbers from user
+    SET number input into variables: num1, num2
+    PRINT num1 * num2
+
+2. a function that takes a list of strings, and returns a string that is all those strings 
+concatenated together
+    START
+    GET list of strings
+    SET length: len(list) + 1
+    SET new_string: empty string
+    WHILE length --> new_string += string
+    PRINT new_string
+    END
+
+3. a function that takes a list of integers, and returns a new list with every other element from 
+the original list, starting with the first element. For instance: every_other([1,4,7,2,5]) 
+# => [1,7,5]
+    START
+    GET list_ints: list of ints 
+    SET: new_list : []
+    WHILE: for list_element in range(::2) -->new_list.append(list_element)
+    PRINT new_list
+    END
+
+
+4. a function that determines the index of the 3rd occurrence of a given character in a string. 
+For instance, if the given character is 'x' and the string is 'axbxcdxex', the function should 
+return 6 (the index of the 3rd 'x'). If the given character does not occur at least 3 times, 
+return None.
+    START
+    GET string, char
+    IF/ELIF/ ElSE: 
+        if count.char < 3 return None
+        else:
+        SET counter:0
+        SET index:0
+        WHILE: len(string)+1, if element == char --> counter += 1 and index = element
+        if counter == 3 return index
+    END
+
+5. a function that takes two lists of numbers and returns the result of merging the lists. 
+The elements of the first list should become the elements at the even indexes of the returned list, 
+while the elements of the second list should become the elements at the odd indexes. 
+For instance: merge([1, 2, 3], [4, 5, 6]) # => [1, 4, 2, 5, 3, 6]
+
+START
+    GET 2 list of ints
+    SET/READ zip_list --> use zip to merge lists
+    SET/READ new_list lists merged as list of tuples
+    SET merge_list = to append values of tuple
+    SET tuple1, tuple2 to store values from in tuple
+    WHILE for items in new_list index items from tuple and append to merge_list
+    PRINT merge_list
+END
