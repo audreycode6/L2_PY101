@@ -1,6 +1,5 @@
-
-# 2. a function that takes a list of strings, and returns a string that is all those strings 
-# concatenated together
+'''2. a function that takes a list of strings, and returns a string that is all those strings 
+concatenated together '''
 
 # START
 def add_strings(list):
