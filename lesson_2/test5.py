@@ -15,9 +15,9 @@ def merge(list1, list2):
     merge_list = []
     
     # WHILE for items in new_list index items from tuple and append to merge_list
-    for tuple1, tuple2 in new_list:
-        merge_list.append(tuple1)
-        merge_list.append(tuple2)
+    for element1, element2 in new_list:
+        merge_list.append(element1)
+        merge_list.append(element2)
     # PRINT merge_list
     return merge_list
 
