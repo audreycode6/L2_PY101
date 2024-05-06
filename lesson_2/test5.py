@@ -13,13 +13,9 @@ def merge(list1, list2):
     new_list = list(zip_list)
     # SET merge_list = to append values of tuple
     merge_list = []
-    # SET tuple1, tuple2 to store values from in tuple
-    tuple1 = 0
-    tuple2 = 0
+    
     # WHILE for items in new_list index items from tuple and append to merge_list
-    for element in new_list:
-        tuple1 = element[0]
-        tuple2 = element[1]
+    for tuple1, tuple2 in new_list:
         merge_list.append(tuple1)
         merge_list.append(tuple2)
     # PRINT merge_list
