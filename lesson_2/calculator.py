@@ -1,16 +1,44 @@
-# calculator program that will:
-    # Ask the user for two numbers.
-    # Ask the user for operation to perform: add, subtract, multiply or divide.
-    # Perform the calculation and display the results
+'''calculator program that will:
+    Ask the user for two numbers.
+    Ask the user for operation to perform: add, subtract, multiply or divide.
+    Perform the calculation and display the results'''
 
-print('Welcome to Calculator!')
+def prompt(message):
+    print(f"==> {message}")
 
-# no error for input/ will crash if input is wrong --> would add error if was function
-num1 = int(input('Enter a number: '))
-num2 = int(input('Enter another number: '))
+def invalid_input(str_num):
+    try:
+        int(str_num)
+    except ValueError:
+        return True
+    return False
 
-operation = input('What operation would you like to perform?\n'
-                  '1) Addition 2) Subtraction 3) Multiplication 4) Division: ')
+prompt('Welcome to Calculator!')
+
+# NUM1
+prompt('Enter a number!')
+num1 = input()
+while invalid_input(num1):
+    prompt("Error: That isn't a valid number, expecting an integer!")
+    num1 = input()
+num1 = int(num1) # ugly conversion to int, but following tut they did
+# -- def know i can make better
+
+# NUM2
+prompt('Enter another number!')
+num2 = input()
+while invalid_input(num2):
+    prompt("Error: That isn't a valid number, expecting an integer!")
+    num2 = input()
+num2 = int(num2)
+
+# OPERATION
+prompt('What operation would you like to perform?:\n'
+        '==> 1) Addition 2) Subtraction 3) Multiplication 4) Division')
+operation = input()
+while operation not in ['1', '2', '3', '4']:
+    prompt('You must choose 1, 2, 3, or 4.')
+    operation = input()
 
 match operation:
     case '1': # addition
@@ -24,12 +52,9 @@ match operation:
             output = 'Error: Cannot divide by zero!'
         else:
             output = num1 / num2
-    case _: # wrong input for operation
-        output = ('Error: Did not input operation you want as a number! ' 
-                  '(i.e: 1, 2, 3, or 4)')
-        
-# printing error vs results        
-if type(output) != int:
+
+# PRINT RESULTS
+if isinstance(output, str):
     print(output)
 else:
-    print(f"The result is {output}")
+    print(f"The result is {output}!")
