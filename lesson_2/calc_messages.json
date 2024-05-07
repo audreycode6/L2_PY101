@@ -1,0 +1,10 @@
+{
+"another_calc" : "Would you like to do another calculation? \n      Enter Y to continue OR any other key to stop.",
+"bye" : "See you later!",
+"welcome" : "Welcome to Calculator!",
+"num1" : "Enter a number!",
+"num2" : "Enter another number!",
+"num_error" : "Error: That isn't a valid number, expecting an integer!",
+"operation": "What operation would you like to perform?:\n      1) Addition 2) Subtraction 3) Multiplication 4) Division",
+"operation_error" : "You must choose 1, 2, 3, or 4."
+}
