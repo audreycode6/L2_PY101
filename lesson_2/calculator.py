@@ -5,13 +5,14 @@
     Ask user if they wanto continue calculating: 
         Y = start over, N =end program
     Internationalize the calc_messages.json
+    Accept float input for numbers
     '''
 import json
 with open('calc_messages.json', 'r') as file:
     MESSAGES = json.load(file)
 
 # DEFAULT LANGUAGE FOR MESSAGES: 'es', 'fr', OR 'en'
-LANGUAGE = 'es'
+LANGUAGE = 'en'
 
 def messages(message, lang='en'):
     return MESSAGES[lang][message]
@@ -22,7 +23,7 @@ def prompt(key):
 
 def invalid_input(str_num):
     try:
-        int(str_num)
+        float(str_num)
     except ValueError:
         return True
     return False
@@ -43,7 +44,7 @@ def calculator():
     while invalid_input(num1):
         prompt('num_error')
         num1 = input()
-    num1 = int(num1)
+    num1 = float(num1)
 
     # NUM2
     prompt('num2')
@@ -51,7 +52,7 @@ def calculator():
     while invalid_input(num2):
         prompt('num_error')
         num2 = input()
-    num2 = int(num2)
+    num2 = float(num2)
 
     # OPERATION
     prompt('operation')
