@@ -1,7 +1,7 @@
 ''' build a mortgage calculator that takes
 in loan amount, APR, and loan duration and returns the
 monthly payment assuming that interest is compounded monthly.'''
-
+# TODO : maybe ask if they want another calc?
 def prompt(message):
     print(f"==> {message}")
 
