@@ -13,24 +13,23 @@ def invalid_input(str_num):
         return True
     return False
 
+def get_number_input(prompt_message):
+    prompt(prompt_message)
+
+    number = input()
+
+    while invalid_input(number):
+        prompt("Error: That isn't a valid number, expecting an integer!")
+        number = input()
+    return int(number)
+
 prompt('Welcome to Calculator!')
 
 # NUM1
-prompt('Enter a number!')
-num1 = input()
-while invalid_input(num1):
-    prompt("Error: That isn't a valid number, expecting an integer!")
-    num1 = input()
-num1 = int(num1) # ugly conversion to int, but following tut they did
-# -- def know i can make better
+num1 = get_number_input('Enter a number!')
 
 # NUM2
-prompt('Enter another number!')
-num2 = input()
-while invalid_input(num2):
-    prompt("Error: That isn't a valid number, expecting an integer!")
-    num2 = input()
-num2 = int(num2)
+num2 = get_number_input('Enter another number!')
 
 # OPERATION
 prompt('What operation would you like to perform?:\n'
