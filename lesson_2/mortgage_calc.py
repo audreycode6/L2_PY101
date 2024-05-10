@@ -9,16 +9,11 @@ with open('mortgage_messages.json', 'r') as file:
 def prompt(message):
     print(f"==> {message}")
 
-def invalid_loan_amount(loan_amount_input):
+def invalid_input(input_value):
     try:
-        float(loan_amount_input)
-    except ValueError:
-        return True
-    return False
-
-def invalid_apr(annual_percentage_rate_input):
-    try:
-        float(annual_percentage_rate_input)
+        float(input_value)
+        if float(input_value) <= 0:
+            return True
     except ValueError:
         return True
     return False
@@ -26,7 +21,15 @@ def invalid_apr(annual_percentage_rate_input):
 def invalid_loan_duration(loan_duration):
     try:
         int(loan_duration)
+        if int(loan_duration) < 0:
+            return True
     except ValueError:
+        return True
+    return False
+
+def zero_or_less_duration(year_month_conversion, month_duration):
+    duration = year_month_conversion + month_duration
+    if duration <= 0:
         return True
     return False
 
@@ -37,7 +40,7 @@ def loan_calc():
     # LOAN AMOUNT INPUT:
     prompt(MESSAGES["loan_amount"])
     loan_amount_input = input()
-    while invalid_loan_amount(loan_amount_input):
+    while invalid_input(loan_amount_input):
         prompt(MESSAGES["invalid_loan_amount"])
         loan_amount_input = input()
     loan_amount = float(loan_amount_input)
@@ -45,7 +48,7 @@ def loan_calc():
     # MONTHLY APR:
     prompt(MESSAGES["APR"])
     annual_percentage_rate_input = input()
-    while invalid_apr(annual_percentage_rate_input):
+    while invalid_input(annual_percentage_rate_input):
         prompt(MESSAGES["invalid_apr"])
         annual_percentage_rate_input = input()
     # CONVERT APR TO DECIMAL FORMAT
@@ -69,6 +72,12 @@ def loan_calc():
         prompt(MESSAGES["invalid_months"])
         month_duration = input()
     month_duration = int(month_duration)
+    # CHECK LOAN DURATION IS GREATER THAN 0: N START OVER, Y KEEP GOING
+    while zero_or_less_duration(year_month_conversion, month_duration):
+        prompt(MESSAGES["invalid_loan_duration"])
+        print("-------PLEASE TRY AGAIN!-------")
+        print(loan_calc())
+
     loan_duration_months = year_month_conversion + month_duration
 
     # MONTHLY PAYMENT:
