@@ -69,16 +69,7 @@ def loan_calc():
         prompt(MESSAGES["invalid_months"])
         month_duration = input()
     month_duration = int(month_duration)
-
     loan_duration_months = year_month_conversion + month_duration
-
-    def calc_again():
-        prompt(MESSAGES["another_calculation"])
-        another_calc = input()
-        if another_calc.lower() == 'y':
-            return loan_calc()
-
-        return prompt(MESSAGES["bye"])
 
     # MONTHLY PAYMENT:
     monthly_payment = loan_amount * (monthly_interest_rate /
@@ -88,5 +79,12 @@ def loan_calc():
     print()
     calc_again()
 
+def calc_again():
+    prompt(MESSAGES["another_calculation"])
+    another_calc = input()
+    if another_calc.lower() == 'y':
+        return loan_calc()
+
+    return prompt(MESSAGES["bye"])
 
 loan_calc()  
