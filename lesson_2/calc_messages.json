@@ -5,10 +5,10 @@
     "welcome" : "Welcome to Calculator!",
     "num1" : "Enter a number!",
     "num2" : "Enter another number!",
-    "num_error" : "Error: That isn't a valid number!",
+    "num_error" : "ERROR: That isn't a valid number.",
     "operation": "What operation would you like to perform?:\n  1) Addition 2) Subtraction 3) Multiplication 4) Division",
-    "operation_error" : "Error: You must choose 1, 2, 3, or 4.",
-    "zero_error" : "Error: Cannot divide by zero!",
+    "operation_error" : "ERROR: You must choose 1, 2, 3, or 4.",
+    "zero_error" : "ERROR: Cannot divide by zero.",
     "result" : "The result is: "
 },
 "es": {
@@ -17,10 +17,10 @@
     "welcome" : "¡Bienvenido a la Calculadora!",
     "num1" : "¡Ingrese un numero!",
     "num2" : "¡Ingrese otro número!",
-    "num_error" : "Error: ¡Ese no es un número válido!",
+    "num_error" : "ERROR: Ese no es un número válido.",
     "operation": "¿Qué operación te gustaría realizar?:\n   1) Suma 2) Resta 3) Multiplicación 4) División",
-    "operation_error" : "Error: Debes elegir 1, 2, 3 o 4.",
-    "zero_error" : "Error: ¡No se puede dividir por cero!",
+    "operation_error" : "ERROR: Debes elegir 1, 2, 3 o 4.",
+    "zero_error" : "ERROR: No se puede dividir por cero.",
     "result" : "El resultado es: "
 },
 "fr": {
@@ -29,10 +29,10 @@
     "welcome" : "Bienvenue sur la calculatrice!",
     "num1" : "Entrez un numéro!",
     "num2" : "Entrez un autre numéro!",
-    "num_error" : "Erreur: ce n'est pas un nombre valide!",
+    "num_error" : "ERREUR: ce n'est pas un nombre valide.",
     "operation":"Quelle opération souhaitez-vous effectuer?:\n  1) Addition 2) Soustraction 3) Multiplication 4) Division",
-    "operation_error" : "Erreur: Vous devez choisir 1, 2, 3 ou 4.",
-    "zero_error" : "Erreur: Impossible de diviser par zéro!",
+    "operation_error" : "ERREUR: Vous devez choisir 1, 2, 3 ou 4.",
+    "zero_error" : "ERREUR: Impossible de diviser par zéro.",
     "result" : "Le résultat est: "
 }
 }
