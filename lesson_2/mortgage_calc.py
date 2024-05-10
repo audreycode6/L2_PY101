@@ -33,6 +33,14 @@ def zero_or_less_duration(year_month_conversion, month_duration):
         return True
     return False
 
+def calc_again():
+    prompt(MESSAGES["another_calculation"])
+    another_calc = input()
+    if another_calc.lower() == 'y':
+        return loan_calc()
+
+    return prompt(MESSAGES["bye"])
+
 def loan_calc():
     prompt(MESSAGES["welcome"])
     print()
@@ -72,7 +80,7 @@ def loan_calc():
         prompt(MESSAGES["invalid_months"])
         month_duration = input()
     month_duration = int(month_duration)
-    # CHECK LOAN DURATION IS GREATER THAN 0: N START OVER, Y KEEP GOING
+    # CHECK LOAN DURATION IS GREATER THAN 0:
     while zero_or_less_duration(year_month_conversion, month_duration):
         prompt(MESSAGES["invalid_loan_duration"])
         print("-------PLEASE TRY AGAIN!-------")
@@ -88,12 +96,4 @@ def loan_calc():
     print()
     calc_again()
 
-def calc_again():
-    prompt(MESSAGES["another_calculation"])
-    another_calc = input()
-    if another_calc.lower() == 'y':
-        return loan_calc()
-
-    return prompt(MESSAGES["bye"])
-
-loan_calc()  
+loan_calc()
