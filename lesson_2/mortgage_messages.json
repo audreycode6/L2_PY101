@@ -1,0 +1,15 @@
+
+{
+    "welcome" : "Welcome to Loan Calculator!",
+    "loan_amount" : "What is your loan amount?",
+    "invalid_loan_amount" : "ERROR: Invalid input, enter numbers only. EX: $1234 -> 1234",
+    "APR" : "What is your Annual Percentage Rate (APR)?",
+    "invalid_apr" : "ERROR: Invalid input, enter numbers only. EX: 4% -> 4",
+    "loan_duration" : "Now I'll need your loan duration: years and months.",
+    "years" : "Enter year(s)!",
+    "invalid_year" : "ERROR: Invalid input, enter numbers only. EX: 6 years -> 6",
+    "months" : "Enter month(s)!",
+    "invalid_months" : "ERROR: Invalid input, enter numbers only. EX: 6 months -> 6",
+    "another_calculation" : "Would you like to make another loan calculation?\n    Enter Y to continue calculating OR enter any other key to exit.",
+    "bye" : "See you later!"
+}
