@@ -1,6 +1,5 @@
 
 {
-    "welcome" : "Welcome to Loan Calculator!",
     "loan_amount" : "What is your loan amount?",
     "invalid_loan_amount" : "ERROR: Invalid input! Expecting number(s) greater than 0.\n    EX: $1234 -> 1234",
     "APR" : "What is your Annual Percentage Rate (APR)?",
@@ -11,6 +10,5 @@
     "months" : "Enter month(s)!",
     "invalid_months" : "ERROR: Invalid input! Enter non-negative numbers only.\n    EX: 6 months -> 6",
     "invalid_loan_duration" : "ERROR: Invalid input! Total loan duration, year(s) + month(s), must be greater than 0.",
-    "another_calculation" : "Would you like to make another loan calculation?\n    Enter Y to continue calculating OR enter any other key to exit.",
-    "bye" : "See you later!"
+    "another_calculation" : "Would you like to make another loan calculation?\n    Enter Y to continue calculating OR enter any other key to exit."
 }
