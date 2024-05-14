@@ -49,7 +49,6 @@ def get_loan_year_duration():
     year_duration = input()
     while invalid_loan_duration(year_duration):
         error_output(MESSAGES["invalid_year"])
-        # try_again_message()
         prompt(MESSAGES["years"])
         year_duration = input()
     year_month_conversion = int(year_duration) * 12
@@ -60,7 +59,6 @@ def get_loan_month_duration():
     month_duration = input()
     while invalid_loan_duration(month_duration):
         error_output(MESSAGES["invalid_months"])
-        # try_again_message()
         prompt(MESSAGES["months"])
         month_duration = input()
     month_duration = int(month_duration)
@@ -96,7 +94,6 @@ def loan_calculator():
     loan_amount_input = get_loan_amount()
     while invalid_loan_amount(loan_amount_input):
         error_output(MESSAGES["invalid_loan_amount"])
-        # try_again_message()
         loan_amount_input = get_loan_amount()
     loan_amount = float(loan_amount_input)
 
@@ -104,7 +101,6 @@ def loan_calculator():
     annual_percentage_rate_input = get_apr()
     while invalid_apr(annual_percentage_rate_input):
         error_output(MESSAGES["invalid_apr"])
-        # try_again_message()
         annual_percentage_rate_input = get_apr()
     annual_percentage_rate = float(annual_percentage_rate_input)
 
@@ -124,7 +120,6 @@ def loan_calculator():
     # CHECK TOTAL LOAN DURATION IS GREATER THAN 0:
     while zero_or_less_duration(year_month_conversion, month_duration):
         error_output(MESSAGES["invalid_loan_duration"])
-        # try_again_message()
         year_month_conversion = get_loan_year_duration()
         month_duration = get_loan_month_duration()
 
