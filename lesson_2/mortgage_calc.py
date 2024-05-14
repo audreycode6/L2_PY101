@@ -2,6 +2,8 @@
 in loan amount, APR, and loan duration and returns the
 monthly payment assuming that interest is compounded monthly.'''
 
+# TODO: break up loan_calculator to be 10-15 lines only, make more functions of the small moving parts
+# TODO: make sure function names reference their side effect (ex display_intro_outro)
 import json
 with open('mortgage_messages.json', 'r') as file:
     MESSAGES = json.load(file)
