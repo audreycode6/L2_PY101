@@ -11,38 +11,59 @@ def prompt(message):
     print(f"==> {message}")
 
 def display_error(message):
-    print(f"    !!!! ERROR: {message} !!!!")
+    print(f"    !!!! ERROR: Invalid input. {message} !!!!")
 
-# welcome message:
 def display_welcome():
-    print('\n-----------------------')
-    print('ROCK * PAPER * SCISSORS')
-    print('---------SHOOT---------\n')
+    print('\n----------------------------------------')
+    print('   ROCK     *   PAPER   *    SCISSORS   ')
+    print('---------------SHOOT--------------------')
 
-display_welcome()
+def display_winner(user, computer):
+    if ((user == 'rock' and computer == 'scissors') or
+        (user == 'paper' and computer == 'rock') or
+        (user == 'scissors' and computer == 'paper')):
+        display_results('YOU WIN! :D')
+    elif ((user == 'rock' and computer == 'paper') or
+        (user == 'paper' and computer == 'scissors') or
+        (user == 'scissors' and computer == 'rock')):
+        display_results('COMPUTER WINS!')
+    else:
+        display_results("IT'S A TIE!")
 
-# ask user for their choice: rock, paper, scissors
-prompt(f'Choose one: {", ".join(VALID_CHOICES)}')
-choice = input().lower()
+def display_results(message):
+    print(f'    ... {message}')
 
-while choice not in VALID_CHOICES:
-    display_error(f'Invalid input. Expecting {" OR ".join(VALID_CHOICES)}')
+def display_bye():
+    prompt('Thanks for playing, see you later!')
+    print('----------------------------------------')
+
+while True: # ROCK PAPER SCISSOR PROGRAM
+    display_welcome()
+
+    # ASK USER FOR THEIR CHOICE: ROCK, PAPER, OR SCISSORS
+    prompt(f'Choose one: {", ".join(VALID_CHOICES)}')
     choice = input().lower()
 
-computer_choice = random.choice(VALID_CHOICES)
+    while choice not in VALID_CHOICES:
+        display_error(f'Enter {" OR ".join(VALID_CHOICES)}')
+        choice = input().lower()
 
-# Display choices: user VS computer
-prompt(f'You chose {choice}, computer chose {computer_choice}')
+    computer_choice = random.choice(VALID_CHOICES)
 
-# Winning conditions:
-if ((choice == 'rock' and computer_choice == 'scissors') or
-    (choice == 'paper' and computer_choice == 'rock')or
-    (choice == 'scissors' and computer_choice == 'paper')):
-    prompt('YOU WIN! :D') # MAYBE PRETTY PRINT function for results
-elif ((choice == 'rock' and computer_choice == 'paper') or
-      (choice == 'paper' and computer_choice == 'scissors')or
-      (choice == 'scissors' and computer_choice == 'rock')):
-    prompt('COMPUTER WINS!')
-else:
-    prompt("IT'S A TIE!")
+    # DISPLAY CHOICES: USER VS COMPUTER
+    prompt(f'You chose {choice} ... computer chose {computer_choice}')
 
+    display_winner(choice, computer_choice)
+
+    # CHECK IF USER WANTS TO PLAY AGAIN
+    print('\n==> Play again? (y/n)')
+    answer = input().lower()
+    while True:
+        if answer.startswith('n') or answer.startswith('y'):
+            break
+        display_error("Enter Y for yes OR N for no.")
+        answer = input().lower()
+
+    if answer[0] == 'n':
+        display_bye()
+        break
