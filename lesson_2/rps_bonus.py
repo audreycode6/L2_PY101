@@ -7,10 +7,7 @@ add Lizard & Spock to choices:
     lizard beats: Spock & paper
     spock beats: scissors & rock
 '''
-# TODO pylint upset about things that are needed:
-    # upset with redefing name ' choice' and 'update_choice' from outer scope 
-        # necessary to update the users input choice to match VALID_CHOICES key
-    # consider iterating with .items() and .keys() -- doesnt work tho
+
 import random
 
 VALID_CHOICES = {
@@ -21,18 +18,17 @@ VALID_CHOICES = {
     'spock' : {'spock', 'sp'}
     }
 
-def choice_invalid(choice):
+def choice_invalid(user_choice):
     choice_is_invalid = True
-
     for choices in VALID_CHOICES.values():
-        if choice in choices:
+        if user_choice in choices:
             choice_is_invalid = False
 
     return choice_is_invalid
 
-def update_choice(choice):
-    for key in VALID_CHOICES.keys():
-        if choice in VALID_CHOICES[key]:
+def update_choice(user_choice):
+    for key, section in VALID_CHOICES.items():
+        if user_choice in section:
             update_choice_full_name = key
 
     return update_choice_full_name
@@ -64,7 +60,7 @@ def display_winner(user, computer):
         display_results("IT'S A TIE!")
 
 def display_results(message):
-    print(f'    ... {message}')
+    print(f'    {message}')
 
 def display_bye():
     prompt('Thanks for playing, see you later!')
@@ -83,14 +79,15 @@ while True: # ROCK PAPER SCISSOR LIZARD SPOCK PROGRAM
 
     # UPDATE USERS CHOICE TO MATCHING CHOICE FROM KEYS IN VALID_CHOICES:
         # i.e 'r' --> rock
-    user_choice = update_choice(choice)
+    USER_FULLNAME_CHOICE = update_choice(choice)
 
-    computer_choice = random.choice(list(VALID_CHOICES.keys()))
+    COMPUTER_CHOICE = random.choice(list(VALID_CHOICES.keys()))
 
     # DISPLAY CHOICES: USER VS COMPUTER
-    prompt(f'You chose {user_choice} ... computer chose {computer_choice}')
+    prompt(f'''You chose {USER_FULLNAME_CHOICE} ...
+    computer chose {COMPUTER_CHOICE} ...''')
 
-    display_winner(user_choice, computer_choice)
+    display_winner(USER_FULLNAME_CHOICE, COMPUTER_CHOICE)
 
     # CHECK IF USER WANTS TO PLAY AGAIN
     print('\n==> Play again? (y/n)')
