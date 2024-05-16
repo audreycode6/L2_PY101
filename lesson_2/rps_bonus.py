@@ -39,12 +39,12 @@ def prompt(message):
 def display_error(message):
     print(f"    !!!! ERROR: Invalid input. {message} !!!!")
 
-def display_welcome():
-    print('\n----------------------------------------')
+def display_welcome(round):
+    print(f'\n------------- ROUND {round} of 5 ---------------')
     print('ROCK * PAPER * SCISSORS * LIZARD * SPOCK')
-    print('----------------GO!---------------------')
+    print('---------------- GO! ---------------------')
 
-def display_winner(user, computer):
+def display_winner(user, computer, game_round):
     winning_combinations = {
         'rock' : ['scissors', 'lizard'],
         'paper' : ['rock', 'spock'],
@@ -52,44 +52,34 @@ def display_winner(user, computer):
         'lizard' : ['spock', 'paper'],
         'spock' : ['scissors', 'rock']
         }
+
     if computer in winning_combinations.get(user, []):
-        display_results('YOU WIN! :D')
+        display_results(f'ROUND {game_round}: You win!')
+        return "user_wins"
     elif user in winning_combinations.get(computer, []):
-        display_results('COMPUTER WINS!')
+        display_results(f'ROUND {game_round}: Computer wins!')
+        return "computer_wins"
     else:
-        display_results("IT'S A TIE!")
+        display_results(f"ROUND {game_round}: Tie!")
+        return "tie"
 
 def display_results(message):
     print(f'    {message}')
 
-def display_bye():
-    prompt('Thanks for playing, see you later!')
-    print('----------------------------------------')
+def display_round_5_winner(user_wins, computer_wins, ties):
+    print("\n-------------- GAME OVER -----------------")
+    if user_wins > computer_wins:
+        print('               YOU WIN! :D')
+    elif user_wins < computer_wins:
+        print('             COMPUTER WINS!')
+    else: 
+        print('           THERES BEEN A TIE! :O')
+    print(f'                 wins: {user_wins}')
+    print(f'               losses: {computer_wins}')
+    print(f'                  tie: {ties}')
+    print('------------------------------------------')
 
-while True: # ROCK PAPER SCISSOR LIZARD SPOCK PROGRAM
-    display_welcome()
-
-    # ASK USER FOR THEIR CHOICE: R P SC L SP
-    prompt(f'Choose one: {", ".join(VALID_CHOICES)}')
-    choice = input().lower()
-
-    while choice_invalid(choice) is not False:
-        display_error(f'Enter {" OR ".join(VALID_CHOICES)}')
-        choice = input().lower()
-
-    # UPDATE USERS CHOICE TO MATCHING CHOICE FROM KEYS IN VALID_CHOICES:
-        # i.e 'r' --> rock
-    USER_FULLNAME_CHOICE = update_choice(choice)
-
-    COMPUTER_CHOICE = random.choice(list(VALID_CHOICES.keys()))
-
-    # DISPLAY CHOICES: USER VS COMPUTER
-    prompt(f'''You chose {USER_FULLNAME_CHOICE} ...
-    computer chose {COMPUTER_CHOICE} ...''')
-
-    display_winner(USER_FULLNAME_CHOICE, COMPUTER_CHOICE)
-
-    # CHECK IF USER WANTS TO PLAY AGAIN
+def prompt_play_again():
     print('\n==> Play again? (y/n)')
     answer = input().lower()
     while True:
@@ -99,5 +89,55 @@ while True: # ROCK PAPER SCISSOR LIZARD SPOCK PROGRAM
         answer = input().lower()
 
     if answer[0] == 'n':
-        display_bye()
-        break
+        return display_bye()
+    return rock_paper_scissors_l_sp()
+
+def display_bye():
+    prompt('Thanks for playing, see you later!')
+    print('-----------------------------------------')
+
+def rock_paper_scissors_l_sp(): # ROCK PAPER SCISSOR LIZARD SPOCK PROGRAM
+    game_round_counter = 0
+    computer_wins_counter = 0
+    user_wins_counter = 0
+    ties_counter = 0
+    while game_round_counter < 5:
+        game_round_counter += 1
+        display_welcome(game_round_counter)
+
+        # ASK USER FOR THEIR CHOICE: R P SC L SP
+        prompt(f'Choose one: {", ".join(VALID_CHOICES)}')
+        choice = input().lower()
+
+        while choice_invalid(choice) is not False:
+            display_error(f'Enter {" OR ".join(VALID_CHOICES)}')
+            choice = input().lower()
+
+        # UPDATE USERS CHOICE TO MATCHING CHOICE FROM KEYS IN VALID_CHOICES:
+            # i.e 'r' --> rock
+        user_fullname_choice = update_choice(choice)
+
+        computer_choice = random.choice(list(VALID_CHOICES.keys()))
+
+        # DISPLAY CHOICES: USER VS COMPUTER
+        prompt(f"You chose {user_fullname_choice}. Computer chose {computer_choice}.")
+
+        score = display_winner(
+            user_fullname_choice, 
+            computer_choice,
+            game_round_counter
+            )
+        # print(score)
+        if score == 'user_wins':
+            user_wins_counter += 1
+        elif score == 'computer_wins':
+            computer_wins_counter += 1
+        else:
+            ties_counter += 1
+
+    # FINAL RESULTS
+    display_round_5_winner(user_wins_counter, computer_wins_counter, ties_counter)
+
+    prompt_play_again()
+
+rock_paper_scissors_l_sp()
