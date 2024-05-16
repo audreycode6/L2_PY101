@@ -1,59 +1,84 @@
 '''calculator program that will:
     Ask the user for two numbers.
     Ask the user for operation to perform: add, subtract, multiply or divide.
-    Perform the calculation and display the results'''
+    Perform the calculation and display the results
+    Ask user if they wanto continue calculating: 
+        Y = start over, N =end program
+    Internationalize the calc_messages.json
+    Accept float input for numbers
+    '''
+import json
+with open('calc_messages.json', 'r') as file:
+    MESSAGES = json.load(file)
 
-def prompt(message):
+# DEFAULT LANGUAGE FOR MESSAGES: 'es', 'fr', OR 'en'
+LANGUAGE = 'fr'
+
+def messages(message, lang='en'):
+    return MESSAGES[lang][message]
+
+def prompt(key):
+    message = messages(key, LANGUAGE)
     print(f"==> {message}")
 
 def invalid_input(str_num):
     try:
-        int(str_num)
+        float(str_num)
     except ValueError:
         return True
     return False
 
 def get_number_input(prompt_message):
     prompt(prompt_message)
-
     number = input()
-
     while invalid_input(number):
-        prompt("Error: That isn't a valid number, expecting an integer!")
+        prompt('num_error')
         number = input()
-    return int(number)
+    return float(number)
 
-prompt('Welcome to Calculator!')
+def calc_again():
+    prompt('another_calc')
+    answer = input()
+    if answer.lower() == 'y':
+        return calculator()
+    return prompt('bye')
 
-# NUM1
-num1 = get_number_input('Enter a number!')
+def calculator():
+    prompt('welcome')
+    # NUM1
+    num1 = get_number_input('num1')
 
-# NUM2
-num2 = get_number_input('Enter another number!')
+    # NUM2
+    num2 = get_number_input('num2')
 
-# OPERATION
-prompt('What operation would you like to perform?:\n'
-        '==> 1) Addition 2) Subtraction 3) Multiplication 4) Division')
-operation = input()
-while operation not in ['1', '2', '3', '4']:
-    prompt('You must choose 1, 2, 3, or 4.')
+    # OPERATION
+    prompt('operation')
     operation = input()
+    while operation not in ['1', '2', '3', '4']:
+        prompt('operation_error')
+        operation = input()
+    match operation:
+        case '1': # ADDITION
+            output = num1 + num2
+        case '2': # SUBTRACTION
+            output = num1 - num2
+        case '3': # MULTIPLICATION
+            output = num1 * num2
+        case '4': # DIVISION
+            if num2 == 0:
+                output = "Error"
+            else:
+                output = num1 / num2
 
-match operation:
-    case '1': # addition
-        output = num1 + num2
-    case '2': # subtraction
-        output = num1 - num2
-    case '3': # multiplication
-        output = num1 * num2
-    case '4': # division
-        if num2 == 0:
-            output = 'Error: Cannot divide by zero!'
-        else:
-            output = num1 / num2
+    # PRINT RESULTS
+    if isinstance(output, str):
+        prompt('zero_error')
+        calc_again()
+    else:
+        prompt('result')
+        print(f'    {output}')
 
-# PRINT RESULTS
-if isinstance(output, str):
-    print(output)
-else:
-    print(f"The result is {output}!")
+        # ASK USER IF THEY WANT TO CALC AGAIN
+        calc_again()
+
+calculator()
