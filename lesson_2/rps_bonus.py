@@ -39,8 +39,8 @@ def prompt(message):
 def display_error(message):
     print(f"    !!!! ERROR: Invalid input. {message} !!!!")
 
-def display_welcome(round):
-    print(f'\n------------- ROUND {round} of 5 ---------------')
+def display_welcome(game_round):
+    print(f'\n------------- ROUND {game_round} of 5 ---------------')
     print('ROCK * PAPER * SCISSORS * LIZARD * SPOCK')
     print('---------------- GO! ---------------------')
 
@@ -56,23 +56,23 @@ def display_winner(user, computer, game_round):
     if computer in winning_combinations.get(user, []):
         display_results(f'ROUND {game_round}: You win!')
         return "user_wins"
-    elif user in winning_combinations.get(computer, []):
+    if user in winning_combinations.get(computer, []):
         display_results(f'ROUND {game_round}: Computer wins!')
         return "computer_wins"
-    else:
-        display_results(f"ROUND {game_round}: Tie!")
-        return "tie"
+
+    display_results(f"ROUND {game_round}: Tie!")
+    return "tie"
 
 def display_results(message):
     print(f'    {message}')
 
-def display_round_5_winner(user_wins, computer_wins, ties):
+def display_final_winner(user_wins, computer_wins, ties):
     print("\n-------------- GAME OVER -----------------")
     if user_wins > computer_wins:
         print('               YOU WIN! :D')
     elif user_wins < computer_wins:
         print('             COMPUTER WINS!')
-    else: 
+    else:
         print('           THERES BEEN A TIE! :O')
     print(f'                 wins: {user_wins}')
     print(f'               losses: {computer_wins}')
@@ -96,11 +96,13 @@ def display_bye():
     prompt('Thanks for playing, see you later!')
     print('-----------------------------------------')
 
-def rock_paper_scissors_l_sp(): # ROCK PAPER SCISSOR LIZARD SPOCK PROGRAM
+# ROCK PAPER SCISSOR LIZARD SPOCK PROGRAM - main entry point
+def rock_paper_scissors_l_sp():
     game_round_counter = 0
     computer_wins_counter = 0
     user_wins_counter = 0
-    ties_counter = 0
+    tie_counter = 0
+
     while game_round_counter < 5:
         game_round_counter += 1
         display_welcome(game_round_counter)
@@ -120,23 +122,24 @@ def rock_paper_scissors_l_sp(): # ROCK PAPER SCISSOR LIZARD SPOCK PROGRAM
         computer_choice = random.choice(list(VALID_CHOICES.keys()))
 
         # DISPLAY CHOICES: USER VS COMPUTER
-        prompt(f"You chose {user_fullname_choice}. Computer chose {computer_choice}.")
+        prompt(
+        f"You chose {user_fullname_choice}. Computer chose {computer_choice}."
+        )
 
         score = display_winner(
-            user_fullname_choice, 
+            user_fullname_choice,
             computer_choice,
             game_round_counter
             )
-        # print(score)
         if score == 'user_wins':
             user_wins_counter += 1
         elif score == 'computer_wins':
             computer_wins_counter += 1
         else:
-            ties_counter += 1
+            tie_counter += 1
 
     # FINAL RESULTS
-    display_round_5_winner(user_wins_counter, computer_wins_counter, ties_counter)
+    display_final_winner(user_wins_counter, computer_wins_counter, tie_counter)
 
     prompt_play_again()
 
