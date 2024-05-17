@@ -147,7 +147,7 @@ def loan_calculator():
     month_duration = get_loan_month_duration()
 
     while zero_or_less_duration(year_month_conversion, month_duration):
-        display_error(MESSAGES["LOAN_DURATION_PROMPT"])
+        display_error(MESSAGES["ERROR_LOAN_DURATION"])
         year_month_conversion = get_loan_year_duration()
         month_duration = get_loan_month_duration()
 
