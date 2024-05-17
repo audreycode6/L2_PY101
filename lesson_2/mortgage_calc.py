@@ -84,9 +84,11 @@ def calc_monthly_payment(loan_amount,
                         loan_duration_months):
     total_monthly_payment = loan_amount * (monthly_interest_rate /
     (1 - (1 + monthly_interest_rate) ** (-loan_duration_months)))
+
     total_duration_interest = (
     (total_monthly_payment * loan_duration_months)- loan_amount
     )
+    
     total_payment = loan_amount + total_duration_interest
 
     return total_monthly_payment, total_duration_interest, total_payment
