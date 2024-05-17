@@ -1,5 +1,6 @@
-'''' Update Rock, Paper, Scissors Program where you play against the computer:
-add Lizard & Spock to choices:
+'''' Updated Rock, Paper, Scissors Program
+where you play against the computer for 5 rounds:
+added Lizard & Spock to choices & allow abbreviations for choice input.
     Rules:
     scissors beats: paper & lizard
     paper beats: rock & spock
@@ -38,6 +39,17 @@ def prompt(message):
 
 def display_error(message):
     print(f"    !!!! ERROR: Invalid input. {message} !!!!")
+
+def display_game_rules():
+    print('--------------------------------------------------')
+    print('Welcome to Rock, Paper, Scissors, Lizard, Spock!\n')
+    print('                 RULES:')
+    print('''        scissors beats: paper & lizard
+        paper beats: rock & spock
+        rock beats: lizard & scissors
+        lizard beats: Spock & paper
+        spock beats: scissors & rock''')
+    print('--------------------------------------------------\n')
 
 def display_welcome(game_round):
     print(f'\n------------- ROUND {game_round} of 5 ---------------')
@@ -112,7 +124,8 @@ def rock_paper_scissors_l_sp():
         choice = input().lower()
 
         while choice_invalid(choice) is not False:
-            display_error(f'Enter {" OR ".join(VALID_CHOICES)}')
+            display_error(f'''Enter {" OR ".join(VALID_CHOICES)}.
+            Abbreviations also accepted: r, p, sc, l, sp''')
             choice = input().lower()
 
         # UPDATE USERS CHOICE TO MATCHING CHOICE FROM KEYS IN VALID_CHOICES:
@@ -142,5 +155,5 @@ def rock_paper_scissors_l_sp():
     display_final_winner(user_wins_counter, computer_wins_counter, tie_counter)
 
     prompt_play_again()
-
+display_game_rules()
 rock_paper_scissors_l_sp()
