@@ -2,8 +2,6 @@
 in loan amount, APR, and loan duration and returns the
 monthly payment assuming that interest is compounded monthly.'''
 
-# TODO: break up loan_calculator to be 10-15 lines only, make more functions of the small moving parts
-# TODO: make sure function names reference their side effect (ex display_intro_outro)
 import json
 with open('mortgage_messages.json', 'r') as file:
     MESSAGES = json.load(file)
@@ -11,15 +9,15 @@ with open('mortgage_messages.json', 'r') as file:
 def prompt(message):
     print(f"==> {message}")
 
-def intro_outro(message):
+def display_intro_outro(message):
     print(f"-------{message}-------")
     print()
 
-def error_output(message):
-    print(f"\n    !!!! {message} !!!!\n\n    -------TRY AGAIN!-------")
+def display_error(message):
+    print(f"\n    !!!! {message} !!!!\n    -------TRY AGAIN!-------\n")
 
 def get_loan_amount():
-    prompt(MESSAGES["loan_amount"])
+    prompt(MESSAGES["LOAN_AMOUNT_PROMPT"])
     loan_amount_input = input()
     return loan_amount_input
 
@@ -33,7 +31,7 @@ def invalid_loan_amount(input_value):
     return False
 
 def get_apr():
-    prompt(MESSAGES["APR"])
+    prompt(MESSAGES["APR_PROMPT"])
     annual_percentage_rate_input = input()
     return annual_percentage_rate_input
 
@@ -47,21 +45,21 @@ def invalid_apr(input_apr):
     return False
 
 def get_loan_year_duration():
-    prompt(MESSAGES["years"])
+    prompt(MESSAGES["YEARS_PROMPT"])
     year_duration = input()
     while invalid_loan_duration(year_duration):
-        error_output(MESSAGES["invalid_year"])
-        prompt(MESSAGES["years"])
+        display_error(MESSAGES["ERROR_YEAR"])
+        prompt(MESSAGES["YEARS_PROMPT"])
         year_duration = input()
     year_month_conversion = int(year_duration) * 12
     return year_month_conversion
 
 def get_loan_month_duration():
-    prompt(MESSAGES["months"])
+    prompt(MESSAGES["MONTHS_PROMPT"])
     month_duration = input()
     while invalid_loan_duration(month_duration):
-        error_output(MESSAGES["invalid_months"])
-        prompt(MESSAGES["months"])
+        display_error(MESSAGES["ERROR_MONTHS"])
+        prompt(MESSAGES["MONTHS_PROMPT"])
         month_duration = input()
     month_duration = int(month_duration)
     return month_duration
@@ -81,78 +79,93 @@ def zero_or_less_duration(year_month_conversion, month_duration):
         return True
     return False
 
+def calc_monthly_payment(loan_amount,
+                        monthly_interest_rate,
+                        loan_duration_months):
+    total_monthly_payment = loan_amount * (monthly_interest_rate /
+    (1 - (1 + monthly_interest_rate) ** (-loan_duration_months)))
+    total_duration_interest = (
+    (total_monthly_payment * loan_duration_months)- loan_amount
+    )
+    total_payment = loan_amount + total_duration_interest
+
+    return total_monthly_payment, total_duration_interest, total_payment
+
+def display_results_with_apr(month_payment, loan_duration, total, interest):
+    print('\n----------RESULTS----------')
+    print(f'Payment Every Month: ${month_payment:.2f}')
+    print(f'''Total Payment Amount
+    ({loan_duration} months): ${total:.2f}''')
+    print(f'Total Interest: ${interest:.2f}')
+    print('---------------------------')
+
+def display_results_0apr(loan_amount, loan_duration_months):
+    monthly_payment =  loan_amount / loan_duration_months
+    print('\n----------RESULTS----------')
+    print(f'Payment Every Month: ${monthly_payment:.2f}')
+    print(f'''Total Payment Amount
+        ({loan_duration_months} months): ${loan_amount:.2f}''')
+    print('---------------------------')
 def calc_again():
-    prompt(MESSAGES["another_calculation"])
+    prompt(MESSAGES["ANOTHER_CALCULATION_PROMPT"])
     another_calc = input()
     if another_calc.lower() == 'y':
         print('\n-------NEW CALCULATION-------')
         return loan_calculator()
 
-    return intro_outro('SEE YOU LATER!')
+    return display_intro_outro('SEE YOU LATER!')
 
-# LOAN CALC PROGRAM - uses functions above
+# LOAN CALC PROGRAM - main entry point
 def loan_calculator():
-    # LOAN AMOUNT INPUT:
+    # LOAN AMOUNT
     loan_amount_input = get_loan_amount()
+
     while invalid_loan_amount(loan_amount_input):
-        error_output(MESSAGES["invalid_loan_amount"])
+        display_error(MESSAGES["ERROR_LOAN_AMOUNT"])
         loan_amount_input = get_loan_amount()
     loan_amount = float(loan_amount_input)
 
-    # MONTHLY APR:
+    # APR
     annual_percentage_rate_input = get_apr()
+
     while invalid_apr(annual_percentage_rate_input):
-        error_output(MESSAGES["invalid_apr"])
+        display_error(MESSAGES["ERROR_APR"])
         annual_percentage_rate_input = get_apr()
     annual_percentage_rate = float(annual_percentage_rate_input)
 
     if annual_percentage_rate != 0:
-        # CONVERT APR TO DECIMAL FORMAT
         apr_decimal = float(annual_percentage_rate_input) * .01
-        # APR -> MONTHLY INTEREST RATE
         monthly_interest_rate = apr_decimal / 12
     else:
-        annual_percentage_rate = 'No APR'
+        annual_percentage_rate = None
 
-    # LOAN DURATION:
-    prompt(MESSAGES["loan_duration"])
+    # LOAN DURATION
+    prompt(MESSAGES["LOAN_DURATION_PROMPT"])
     year_month_conversion = get_loan_year_duration()
     month_duration = get_loan_month_duration()
 
-    # CHECK TOTAL LOAN DURATION IS GREATER THAN 0:
     while zero_or_less_duration(year_month_conversion, month_duration):
-        error_output(MESSAGES["invalid_loan_duration"])
+        display_error(MESSAGES["LOAN_DURATION_PROMPT"])
         year_month_conversion = get_loan_year_duration()
         month_duration = get_loan_month_duration()
 
     loan_duration_months = year_month_conversion + month_duration
 
-    # MONTHLY PAYMENT with VS without APR:
-    if annual_percentage_rate != 'No APR':
-        total_monthly_payment = loan_amount * (monthly_interest_rate /
-        (1 - (1 + monthly_interest_rate) ** (-loan_duration_months)))
-        total_duration_interest = (
-        (total_monthly_payment * loan_duration_months)- loan_amount
-        )
-        total_payment = loan_amount + total_duration_interest
+    # RESULTS
+    if annual_percentage_rate is not None:
+        monthly_payment, total_interest, total_payment = calc_monthly_payment(
+        loan_amount,
+        monthly_interest_rate,
+        loan_duration_months)
 
-        # RESULTS
-        print('\n----------RESULTS----------')
-        print(f'Payment Every Month: ${total_monthly_payment:.2f}')
-        print(f'''Total Payment Amount
-        ({loan_duration_months} months): ${total_payment:.2f}''')
-        print(f'Total Interest: ${total_duration_interest:.2f}')
-        print('---------------------------')
+        display_results_with_apr(monthly_payment,
+        loan_duration_months,
+        total_payment,
+        total_interest)
     else:
-        monthly_payment =  loan_amount / loan_duration_months
-        # RESULTS
-        print('\n----------RESULTS----------')
-        print(f'Payment Every Month: ${monthly_payment:.2f}')
-        print(f'''Total Payment Amount
-         ({loan_duration_months} months): ${loan_amount:.2f}''')
-        print('---------------------------')
-    # ASK USER IF THEY WANT TO CALC AGAIN:
-    print()
+        display_results_0apr(loan_amount, loan_duration_months)
+
     calc_again()
-intro_outro('WELCOME TO YOUR TRUSTY LOAN CALCULATOR!')
+
+display_intro_outro('WELCOME TO YOUR TRUSTY LOAN CALCULATOR!')
 loan_calculator()
