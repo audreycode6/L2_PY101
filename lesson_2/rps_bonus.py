@@ -162,7 +162,7 @@ def rock_paper_scissors_l_sp():
         user_fullname_choice = update_choice(user_choice)
         computer_choice = random.choice(list(VALID_CHOICES.keys()))
 
-        # ROUND RESULTS
+        # RESULTS FOR CURRENT ROUND
         display_results(f'''You chose {user_fullname_choice}. **
     ** Computer chose {computer_choice}.''')
 
