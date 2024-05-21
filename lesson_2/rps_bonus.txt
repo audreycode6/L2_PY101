@@ -1,0 +1,45 @@
+1. Lizard Spock This game is a variation on the Rock Paper Scissors game that 
+adds two more options - Lizard and Spock. 
+The goal of this bonus is to add Lizard and Spock to your game.
+    Rules:
+    # Rules:
+#     spock > scissors
+#     spock > rock
+
+#     lizard > Spock
+#     lizard > paper
+
+#     scissors > paper
+#     scissors > lizard
+
+#     paper > rock
+#     paper > spock
+
+#     rock > scissors
+#     rock > lizard
+
+2. Shortened Input Typing the full word "rock" or "lizard" is tiring. 
+Update the program so the user can type "r" for "rock," "p" for "paper," 
+and so on. 
+    options for input: full word OR first letter (first 2 letters for scissors and spock)
+    rock = ['rock', 'r']
+    paper = [ 'paper', 'p']
+    scissors = ['scissors', 'sc']
+    lizard = ['lizard', 'l']
+    spock = ['spock', 'sp']
+3. Best of Five Keep score of the player's and computer's wins. 
+When either the player or computer reaches three wins, the match is over, 
+and the winning player becomes the grand winner. 
+Don't add your incrementing logic to display_winner. Keep your functions simple; 
+they should perform one logical task -- no more, no less.
+    rounds = 0
+    user_score = 0
+    computer_score = 0
+    set variables 
+    while round <= 5:
+        increment winner by 1, increment round each time
+        if __score == 3:
+        return winner
+        else return results
+
+
