@@ -1,5 +1,6 @@
 
 {
+    "DISPLAY_WELCOME" : "WELCOME TO YOUR TRUSTY LOAN CALCULATOR!",
     "LOAN_AMOUNT_PROMPT" : "What is your loan amount?",
     "ERROR_LOAN_AMOUNT" : "ERROR: Invalid input! Expecting number(s) greater than 0.\n    EX: $1234 -> 1234",
     "APR_PROMPT" : "What is your Annual Percentage Rate (APR)?",
@@ -10,5 +11,5 @@
     "MONTHS_PROMPT" : "Enter month(s)!",
     "ERROR_MONTHS" : "ERROR: Invalid input! Enter non-negative numbers only.\n    EX: 6 months -> 6",
     "ERROR_LOAN_DURATION" : "ERROR: Invalid input! Total loan duration, year(s) + month(s), must be greater than 0.",
-    "ANOTHER_CALCULATION_PROMPT" : "Would you like to make another loan calculation?\n    Enter Y to continue calculating OR enter any other key to exit."
+    "ANOTHER_CALCULATION_PROMPT" : "Would you like to make another loan calculation?\n    Enter Y to continue to a new calculation OR enter any other key to exit."
 }
