@@ -13,7 +13,7 @@ import random
 import os
 from time import sleep
 
-NUMBER_OF_ROUNDS = 3
+NUMBER_OF_ROUNDS = 5
 VALID_CHOICES = {
     'rock' : 'r',
     'paper' : 'p',
